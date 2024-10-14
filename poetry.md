@@ -26,6 +26,12 @@ For installing local packages under [tool.poetry.dependencies] where ```PACKAGE_
 PACKAGE_NAME = { path = "DIRECTORY/PACKAGE_NAME/" }
 ```
 
+For installing packages once:
+```
+[tool.poetry.extras]
+dev = ["robomimic"]
+```
+
 For filter unnecessary texts:
 ```
 [tool.pytest.ini_options]
