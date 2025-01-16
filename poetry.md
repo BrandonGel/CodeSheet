@@ -42,5 +42,16 @@ filterwarnings = [
 ]
 ```
 
+For installing libraries with a source or website:
+```
+poetry source add --priority=supplemental torch https://download.pytorch.org/whl/cu121
+poetry add --source torch torch=2.3.1
+```
+
+
+For installing libraries with no supplementaty packages
+```
+pip install . --no-dependencies
+```
 
 For a tutorial in Poetry, use this [link](https://python-poetry.org/docs/basic-usage/.).
