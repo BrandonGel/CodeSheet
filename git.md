@@ -16,3 +16,17 @@ git remote set-url origin git@github.gatech.edu:username/repo.git
 ```
 Next, use this [link](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) for setting up the ssh keys.
  
+For creating a new git repo on terminal and pushing to the existing new git repo
+```
+git init
+git add --all
+git commit -m "first commit"
+```
+Paste this command line for adding the github repo online (remember to change the name)
+```
+git remote add origin git@github.com:brandongel/<reponame>.git
+```
+Then push
+```
+git push -u origin master
+```
