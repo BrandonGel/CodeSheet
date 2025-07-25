@@ -30,3 +30,8 @@ Then push
 ```
 git push -u origin master
 ```
+
+For gitignore, to ignore files with greater than 100mb
+```
+find * -size +100M | cat >> .gitignore
+```
