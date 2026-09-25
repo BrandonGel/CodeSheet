@@ -1,15 +1,46 @@
 # Poetry cheat sheet
 
+## Set your package name first
+Type your package name once. The setup commands below use it, so you can copy and paste them as-is. Run this again in any new terminal.
+
+Linux / macOS:
+```bash
+export ENV_NAME=my_env
+```
+
+Windows (Command Prompt):
+```bat
+set ENV_NAME=my_env
+```
+
 ## Setting up a project
-In an existing folder (`ENV_NAME` is your package name):
+In an existing folder.
+
+Linux / macOS:
 ```bash
 poetry init
-mkdir -p tests ENV_NAME
-touch tests/__init__.py ENV_NAME/__init__.py
+mkdir -p tests "$ENV_NAME"
+touch tests/__init__.py "$ENV_NAME/__init__.py"
 ```
-Or create the whole layout in a new folder:
+
+Windows (Command Prompt):
+```bat
+poetry init
+mkdir tests %ENV_NAME%
+type nul > tests\__init__.py
+type nul > %ENV_NAME%\__init__.py
+```
+
+Or create the whole layout in a new folder.
+
+Linux / macOS:
 ```bash
-poetry new ENV_NAME
+poetry new "$ENV_NAME"
+```
+
+Windows (Command Prompt):
+```bat
+poetry new %ENV_NAME%
 ```
 
 ## Adding packages
