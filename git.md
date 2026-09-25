@@ -1,37 +1,37 @@
-# Github cheat sheet
+# Git cheat sheet
 
-Creating/Switiching to a new branch ```BRANCH_NAME```
-```
+## Branches
+Create and switch to a new branch `BRANCH_NAME`:
+```bash
 git checkout -b BRANCH_NAME
 ```
 
-To bypass the github requirement for password and username, need to update remote url.
-For regular github:
+## Using SSH instead of username/password
+Point the remote at the SSH URL.
+
+GitHub:
+```bash
+git remote set-url origin git@github.com:USERNAME/REPO.git
 ```
-git remote set-url origin git@github.com:username/repo.git
+Georgia Tech GitHub:
+```bash
+git remote set-url origin git@github.gatech.edu:USERNAME/REPO.git
 ```
-For gatech github
-```
-git remote set-url origin git@github.gatech.edu:username/repo.git
-```
-Next, use this [link](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) for setting up the ssh keys.
- 
-For creating a new git repo on terminal and pushing to the existing new git repo
-```
+Then set up an SSH key: [Generating a new SSH key and adding it to the ssh-agent](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent).
+
+## Pushing a local project to a new GitHub repo
+Create the empty repo on GitHub first, then in the project folder:
+```bash
 git init
 git add --all
 git commit -m "first commit"
-```
-Paste this command line for adding the github repo online (remember to change the name)
-```
-git remote add origin git@github.com:brandongel/<reponame>.git
-```
-Then push
-```
-git push -u origin master
+git branch -M main
+git remote add origin git@github.com:USERNAME/REPO.git
+git push -u origin main
 ```
 
-For gitignore, to ignore files with greater than 100mb
-```
-find * -size +100M | cat >> .gitignore
+## Ignoring files over 100 MB
+GitHub rejects files larger than 100 MB. Append them to `.gitignore`:
+```bash
+find * -type f -size +100M >> .gitignore
 ```
