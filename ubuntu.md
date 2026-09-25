@@ -1,22 +1,30 @@
-When in Grub for ubuntu, look for the drive that has ubuntu. A good way to check is to perform ls to see the content of the hard drive and its partition. Ubuntu should have bin, boot, etc.
+# Ubuntu cheat sheet
+
+## Recovering from the GRUB rescue prompt
+List the drives and partitions GRUB can see:
 ```
-ls (hd0, gpt5)/
+ls
 ```
-"hd0" represents hard drive 0. "gpt5" represents which partition in the hardrive.
+Look for the partition that has Ubuntu on it. Listing its contents should show `bin`, `boot`, `etc`, and so on. `hd0` is hard drive 0 and `gpt5` is partition 5 on it (no space after the comma):
 ```
-ls (hd0, gpt5)
-set prefix0=(hd0,gpt5)/boot/grub
+ls (hd0,gpt5)/
+```
+Once you've found it, boot from it:
+```
+set root=(hd0,gpt5)
+set prefix=(hd0,gpt5)/boot/grub
 insmod linux
 insmod normal
 normal
 ```
-Now, you should see the default ubuntu and window screen. After logging into your linux user account, then enter the following commands in your terminal.
-```
+You should now see the usual Ubuntu/Windows boot menu. Log into Ubuntu and reinstall GRUB so the fix sticks:
+```bash
 sudo grub-install
 sudo update-grub
 ```
-As added insurance, download Ubuntu boot-repair as it can fix the boot start.
-```
+
+As extra insurance, install Boot-Repair, which can fix the boot setup automatically:
+```bash
 sudo add-apt-repository ppa:yannubuntu/boot-repair && sudo apt update
 sudo apt install -y boot-repair && boot-repair
 ```
