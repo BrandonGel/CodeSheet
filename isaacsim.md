@@ -3,55 +3,58 @@
 > **Draft:** lines marked **(check)** are guesses I haven't confirmed against your setup. Delete each mark once it's verified.
 
 ## Set your version first
-Type the Isaac Sim version once. The install commands below use it, so you can copy and paste them as-is. Run this again in any new terminal.
+Type the Isaac Sim version once. The commands below use it, so you can copy and paste them as-is. Run this again in any new terminal.
 ```bash
-export ISAACSIM_VERSION=5.1.0
+export ISAACSIM_VERSION=6.2.0
 ```
-**(check)** 5.1.0 was the latest release I knew of. Isaac Sim 5.x needs Python 3.11; 4.x needs Python 3.10.
 
 ## Check your machine
-Ubuntu 22.04 or 24.04 with an NVIDIA RTX GPU **(check)**. See which driver you have:
+Ubuntu 22.04 or 24.04 with an NVIDIA RTX GPU **(check: requirements for 6.2.0)**. See which driver you have:
 ```bash
 nvidia-smi
 ```
-The standalone download also ships a checker (see below): `./isaac-sim.compatibility_check.sh`.
-
-## Install with pip (in a Conda environment)
+The build needs Git LFS and a C++ compiler **(check: GCC version for 6.2.0)**:
 ```bash
-conda create -n isaacsim python=3.11 -y
-conda activate isaacsim
-pip install --upgrade pip
-pip install "isaacsim[all,extscache]==$ISAACSIM_VERSION" --extra-index-url https://pypi.nvidia.com
+sudo apt update
+sudo apt install git git-lfs build-essential
+git lfs install
 ```
-Launch it:
+
+## Install from the Git repo
+Clone the source and check out your version. **(check)** the tag name format.
 ```bash
-conda activate isaacsim
-isaacsim
+cd ~
+git clone https://github.com/isaac-sim/IsaacSim.git isaacsim
+cd ~/isaacsim
+git checkout "v$ISAACSIM_VERSION"
+git lfs pull
+./build.sh
+```
+The first build downloads several GB and takes a while.
+
+## Launching Isaac Sim
+```bash
+cd ~/isaacsim/_build/linux-x86_64/release
+./isaac-sim.sh
 ```
 The first launch asks you to accept the EULA and takes several minutes while it builds the shader cache. To skip the EULA prompt:
 ```bash
 export OMNI_KIT_ACCEPT_EULA=YES
 ```
-
-## Install from the standalone download
-Download the Linux zip from the [Isaac Sim download page](https://docs.isaacsim.omniverse.nvidia.com/latest/installation/download.html) into `~/Downloads`. **(check)** the zip name below.
-```bash
-mkdir -p ~/isaacsim
-cd ~/Downloads
-unzip "isaac-sim-standalone-${ISAACSIM_VERSION}-linux-x86_64.zip" -d ~/isaacsim
-cd ~/isaacsim
-./post_install.sh
-```
-Launch it:
-```bash
-cd ~/isaacsim
-./isaac-sim.selector.sh   # opens a small picker for the app and options
-./isaac-sim.sh            # or start the full app directly
-```
 Run your own Python script with Isaac Sim's bundled Python:
 ```bash
-cd ~/isaacsim
+cd ~/isaacsim/_build/linux-x86_64/release
 ./python.sh path/to/script.py
+```
+
+## Updating to a new version
+```bash
+export ISAACSIM_VERSION=6.2.0   # change to the new version
+cd ~/isaacsim
+git fetch --tags
+git checkout "v$ISAACSIM_VERSION"
+git lfs pull
+./build.sh
 ```
 
 ## CPU power mode
