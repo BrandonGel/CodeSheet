@@ -111,11 +111,11 @@ git stash push -u -m "MESSAGE"
 ## Undoing changes
 Discard unstaged changes to a file:
 ```bash
-git restore FILE
+git checkout -- FILE
 ```
 Unstage a file but keep its changes:
 ```bash
-git restore --staged FILE
+git reset HEAD FILE
 ```
 Fix the last commit's message, or add forgotten staged files to it (only before pushing):
 ```bash
