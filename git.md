@@ -93,6 +93,26 @@ A rebased branch that was already pushed needs a force push. `--force-with-lease
 git push --force-with-lease
 ```
 
+## Syncing a fork with its parent repo
+Add the original (parent) repo as a second remote called `upstream`, once per clone:
+```bash
+git remote add upstream git@github.com:PARENT_OWNER/REPO.git
+git remote -v
+```
+Pull the parent's latest `main` into your fork's `main`, then push it to your fork:
+```bash
+git fetch upstream
+git checkout main
+git merge upstream/main
+git push origin main
+```
+Bring those changes into your own branch `BRANCH_NAME` afterwards:
+```bash
+git checkout BRANCH_NAME
+git merge main
+```
+On GitHub you can also press **Sync fork** on your fork's page, then run `git pull` locally.
+
 ## Stashing
 Set uncommitted changes aside, for example to switch branches:
 ```bash
