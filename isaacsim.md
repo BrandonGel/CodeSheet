@@ -14,21 +14,7 @@ Ubuntu 22.04 or 24.04 with an NVIDIA RTX GPU **(check: requirements for 6.2.0)**
 nvidia-smi
 ```
 
-## Install with pip (in a Conda environment)
-**(check)** the Python version for 6.2.0. Isaac Sim 5.x needed Python 3.11.
-```bash
-conda create -n isaacsim python=3.11 -y
-conda activate isaacsim
-pip install --upgrade pip
-pip install "isaacsim[all,extscache]==$ISAACSIM_VERSION" --extra-index-url https://pypi.nvidia.com
-```
-Launch it:
-```bash
-conda activate isaacsim
-isaacsim
-```
-
-## Install from the standalone download
+## Install (standalone download)
 Download the Linux zip from the [Isaac Sim download page](https://docs.isaacsim.omniverse.nvidia.com/latest/installation/download.html) into `~/Downloads`. **(check)** the zip name below.
 ```bash
 mkdir -p ~/isaacsim
@@ -50,7 +36,30 @@ cd ~/isaacsim
 ```
 The standalone download also ships a checker: `./isaac-sim.compatibility_check.sh`.
 
-## Build from the Git repo
+## First launch
+The first launch asks you to accept the EULA and takes several minutes while it builds the shader cache. To skip the EULA prompt:
+```bash
+export OMNI_KIT_ACCEPT_EULA=YES
+```
+
+## Other ways to install
+Not what I use, kept for reference.
+
+### With pip (in a Conda environment)
+**(check)** the Python version for 6.2.0. Isaac Sim 5.x needed Python 3.11.
+```bash
+conda create -n isaacsim python=3.11 -y
+conda activate isaacsim
+pip install --upgrade pip
+pip install "isaacsim[all,extscache]==$ISAACSIM_VERSION" --extra-index-url https://pypi.nvidia.com
+```
+Launch it:
+```bash
+conda activate isaacsim
+isaacsim
+```
+
+### Build from the Git repo
 Needs Git LFS and a C++ compiler **(check: GCC version for 6.2.0)**:
 ```bash
 sudo apt update
@@ -78,12 +87,6 @@ git fetch --tags
 git checkout "v$ISAACSIM_VERSION"
 git lfs pull
 ./build.sh
-```
-
-## First launch
-The first launch asks you to accept the EULA and takes several minutes while it builds the shader cache. To skip the EULA prompt:
-```bash
-export OMNI_KIT_ACCEPT_EULA=YES
 ```
 
 ## CPU power mode
